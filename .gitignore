@@ -1,0 +1,61 @@
+﻿*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
+
+# Visual Studio Code
+.vscode
+
+# Rider
+.idea
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.pdb
+*.txt
+*.bin
+*.config
+!packages.config
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/*
+[Rr]eleases/
+x64/
+x86/*
+/build/
+bld/
+[Bb]in/*
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# NuGet Packages
+*.nupkg
+# NuGet Symbol Packages
+*.snupkg
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
+
+# Include LZO libraries
+!bin/x86/[Rr]elease/lzo32/*
+
+# Include config file
+!TTLBackend.exe.config
+
+# Visual Studio 2015
+.vs/*
+.vs/TTLBackend/v16/.suo
+Be.Windows.Forms.HexBox/bin/x86/Release/Be.Windows.Forms.HexBox.dll
+TTLBackend/bin/x86/Release/Be.Windows.Forms.HexBox.dll

@@ -1,0 +1,1 @@
+Get-ChildItem -Path . -Recurse -Filter *.resx -File | Unblock-File

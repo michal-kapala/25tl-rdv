@@ -1,0 +1,38 @@
+﻿using System.IO;
+
+namespace QuazalWV
+{
+    public class RMCPacketRequestAuthenticationService_RequestTicket : RMCPRequest
+    {
+        public uint sourcePID;
+        public uint targetPID;
+
+        public RMCPacketRequestAuthenticationService_RequestTicket()
+        { 
+        }
+
+        public RMCPacketRequestAuthenticationService_RequestTicket(Stream s)
+        {
+            sourcePID = Helper.ReadU32(s);
+            targetPID = Helper.ReadU32(s);
+        }
+
+        public override byte[] ToBuffer()
+        {
+            MemoryStream result = new MemoryStream();
+            Helper.WriteU32(result, sourcePID);
+            Helper.WriteU32(result, targetPID);
+            return result.ToArray();
+        }
+
+        public override string ToString()
+        {
+            return "[RequestTicket Request : PID Source=0x" + sourcePID.ToString("X8") + " PID Target=" + targetPID.ToString("X8") + "]";
+        }
+
+        public override string PayloadToString()
+        {
+            return "";
+        }
+    }
+}
