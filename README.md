@@ -1,13 +1,19 @@
 # Overview
-This is a proof-of-concept Quazal Rendez-Vous emulator implementation of the online services for the PC version of the game **_25 To Life_** by Eidos Interactive.
+Quazal Rendez-Vous matchmaking server implementation for  _25 To Life_ game by Eidos Interactive (PC/PS2 support).
 
-Its aim is to enable P2P online multiplayer mode for _**25 To Life**_ without the use of any LAN emulators.
+| Service | Protocol | Port |
+|---|---|---|
+| PS2 authentication | PRUDP/RMC | 30120 (UDP) |
+| PC authentication | PRUDP/RMC | 30125 (UDP) |
+| RDV (matchmaking) | PRUDP/RMC | 30126 (UDP) |
+| Live API | HTTP | 2525 |
 
-This project is a fork of [Quazal SDK implementation for Ghost Recon Online by Warranty Voider](https://github.com/zeroKilo/GROBackendWV) and reuses as much from it as possible.
+Live API exposes info on online players and lobbies.
 
-Big thanks and shoutout to Warranty Voider who has done the prework of research and implementation of the whole Quazal protocol stack and made this project possible.
+PCSX2 is supported, the game clients do not support PC-PS2 crossplay in P2P traffic.
 
 # Configuration
+
 ## Client
 To redirect client's UDP traffic to the server, add the following line to `C:\Windows\System32\drivers\etc\hosts` file:
 - localhost setup
@@ -20,7 +26,7 @@ To redirect client's UDP traffic to the server, add the following line to `C:\Wi
 
 `<env domain> ttllivepc.quazal.net`
 
-Forwarding port **4659 (UDP)** is required to connect to the backend online (does not affect LAN).
+Forwarding the game port is recommended in public hosting scenarios (UDP 4659 for both PC and PS2).
 
 ## Backend
 Set your public address in `SecureServerAddress` tag of `TTLBackend/App.config` XML configuration before building the project. This address will be used by the authentication server to redirect traffic to the secure server after successful authentication.
@@ -35,4 +41,14 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass .\trust_resx.ps1
 To start the server application:
 
 1) Run `TTLBackend.exe` (via Visual Studio project, `_runme.bat` script or directly)
-2) Click `Start` button to start up the UDP server.
+2) Click `Start` button to start up all online services
+
+# License
+Due to interoperability with proprietary abandonware, this software is licensed under MIT with [Commons Clause](https://commonsclause.com/) (permissive with the exception of sale).
+
+# Disclaimers
+This project is not maintained by or affiliated with Eidos Interactive, Avalanche Software, Crystal Dynamics or Ritual Entertainment.
+
+This project is a fork of Quazal SDK implementation for [Ghost Recon Online](https://github.com/zeroKilo/GROBackendWV) by Warranty Voider and reuses as much from it as possible.
+
+Big thanks and shoutout to Warranty Voider who has done the prework of research and implementation of the whole Quazal protocol stack and made this project possible.
