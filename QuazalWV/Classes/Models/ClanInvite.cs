@@ -97,7 +97,7 @@ namespace QuazalWV
         public static EClanError Cancel(ClientInfo client, string invitee)
         {
             string sql = $"DELETE FROM clan_invites WHERE inviter='{client.Name}' AND invitee='{invitee}'";
-            SQLiteCommand cmd = new SQLiteCommand(sql);
+            SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
             try
             {
                 return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.InvalidInvitation;
@@ -113,7 +113,7 @@ namespace QuazalWV
         {
             // Delete the invitation
             string sql = $"DELETE FROM clan_invites WHERE invitee='{client.Name}' AND inviter='{inviter}' AND clan_id={clanId}";
-            SQLiteCommand cmd = new SQLiteCommand(sql);
+            SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
             try
             {
                 if(cmd.ExecuteNonQuery() == 0)
@@ -131,7 +131,7 @@ namespace QuazalWV
             {
                 // Add to clan members
                 sql = $"INSERT INTO clan_members (clan_id, pid, player_name, is_officer) VALUES ({clanId},{client.PID},'{client.Name}',0);";
-                cmd = new SQLiteCommand(sql);
+                cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
                 try
                 {
                     return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.NoError;
@@ -148,7 +148,7 @@ namespace QuazalWV
         public static EClanError Reject(ClientInfo client, uint clanId, string inviter)
         {
             string sql = $"DELETE FROM clan_invites WHERE inviter='{inviter}' AND invitee='{client.Name}' AND clan_id={clanId}";
-            SQLiteCommand cmd = new SQLiteCommand(sql);
+            SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
             try
             {
                 return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.InvalidInvitation;
@@ -163,7 +163,7 @@ namespace QuazalWV
         public static EClanError Block(ClientInfo client, uint clanId, string inviter)
         {
             string sql = $"UPDATE clan_invites SET blocked=1 WHERE inviter='{inviter}' AND invitee='{client.Name}' AND clan_id={clanId}";
-            SQLiteCommand cmd = new SQLiteCommand(sql);
+            SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
             try
             {
                 return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.InvalidInvitation;

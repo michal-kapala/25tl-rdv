@@ -82,7 +82,7 @@ namespace QuazalWV
             {
                 uint clanId = Convert.ToUInt32(requesterClan[0][0]);
                 string sql = $"DELETE FROM clan_members WHERE pid={pid} AND clan_id={clanId}";
-                SQLiteCommand cmd = new SQLiteCommand(sql);
+                SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
                 try
                 {
                     return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.PlayerNotInClan;
@@ -104,7 +104,7 @@ namespace QuazalWV
         public static EClanError Leave(ClientInfo client)
         {
             string sql = $"DELETE FROM clan_members WHERE pid={client.PID}";
-            SQLiteCommand cmd = new SQLiteCommand(sql);
+            SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
             try
             {
                 return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.PlayerNotInClan;
@@ -119,7 +119,7 @@ namespace QuazalWV
         public static EClanError Promote(uint pid)
         {
             string sql = $"UPDATE clan_members SET is_officer=1 WHERE pid={pid}";
-            SQLiteCommand cmd = new SQLiteCommand(sql);
+            SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
             try
             {
                 return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.PlayerNotInClan;
@@ -134,7 +134,7 @@ namespace QuazalWV
         public static EClanError Demote(uint pid)
         {
             string sql = $"UPDATE clan_members SET is_officer=0 WHERE pid={pid}";
-            SQLiteCommand cmd = new SQLiteCommand(sql);
+            SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
             try
             {
                 return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.PlayerNotInClan;

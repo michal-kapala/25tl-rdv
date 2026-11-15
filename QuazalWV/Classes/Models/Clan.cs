@@ -117,7 +117,7 @@ namespace QuazalWV
             {
                 uint clanId = Convert.ToUInt32(requester[0][0]);
                 sql = $"UPDATE clans SET leader='{requester[0][1]}' WHERE id={clanId}";
-                SQLiteCommand cmd = new SQLiteCommand(sql);
+                SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
                 try
                 {
                     return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.InvalidClan;
@@ -134,7 +134,7 @@ namespace QuazalWV
         public static EClanError UpdateNotice(string player, string notice)
         {
             string sql = $"UPDATE clans SET notice='{notice}' WHERE leader='{player}'";
-            SQLiteCommand cmd = new SQLiteCommand(sql);
+            SQLiteCommand cmd = new SQLiteCommand(sql, SqliteHelper.Connection);
             try
             {
                 return cmd.ExecuteNonQuery() > 0 ? EClanError.NoError : EClanError.InvalidClan;
